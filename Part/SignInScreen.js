@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-    backgroundColor: '#f2f2f2', // Light gray background color
+    backgroundColor: '#F5F5DC', // beige background color
   },
   logo: {
     width: 200, // Logo width

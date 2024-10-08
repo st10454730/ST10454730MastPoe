@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#F5F5DC',
   },
   title: {
     fontSize: 28,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   addButton: {
-    backgroundColor: '#808080',
+    backgroundColor: '#FF0000',
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
