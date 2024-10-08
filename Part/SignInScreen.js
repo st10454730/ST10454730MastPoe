@@ -5,28 +5,15 @@ const SignInScreen = ({ navigation }) => {
   const [username, setUsername] = useState(''); // State for username
   const [password, setPassword] = useState(''); // State for password
 
-  // Predefined users for demonstration purposes
-  const users = [
-    { username: 'user1', password: 'password1' },
-    { username: 'user2', password: 'password2' },
-  ];
-
-  const handleSignIn = () => {
-    // Check if the user exists
-    const user = users.find((user) => user.username === username && user.password === password);
-    
-    // Validation checks
-    if (username === '' || password === '') {
-      Alert.alert('Error', 'Please enter both username and password');
-    } else if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters');
-    } else if (!user) {
-      Alert.alert('Error', 'Invalid username or password');
-    } else {
-      Alert.alert('Success', 'Login successful!');
-      navigation.navigate('Home'); // Navigate to Home screen upon successful login
+  // This prompts  the users to enter username & password of their choice
+  const handleSignIn =() => {
+    if (username && password){
+      navigation.navigate('Home');//NavigateS to Home Screen afterlogin
+    }else{
+      alert('Please enter both username and password.')
     }
-  };
+  }
+  
 
   return (
     <View style={styles.container}>

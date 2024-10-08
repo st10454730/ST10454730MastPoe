@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-// Sample data for cuisines and their menu items
+// Sample data for cuisines and their menu items with added descriptions
 const menuData = {
   Starter: [
-    { id: '1', name: 'Chicken Salad', price: 50 },
-    { id: '2', name: 'Crab Legs wiath Cheese', price: 150 },
-    { id: '3', name: 'Fried Tofu', price: 70 },
-    { id: '4', name: 'Samosas', price: 50 },
-    { id: '5', name: 'Salad with Olives', price: 80 },
+    { id: '1', name: 'Chicken Salad', description: 'Fresh salad with grilled chicken slices', price: 50 },
+    { id: '2', name: 'Crab Legs with Cheese', description: 'Grilled crab legs topped with melted cheese', price: 150 },
+    { id: '3', name: 'Fried Tofu', description: 'Crispy tofu served with a savory dipping sauce', price: 70 },
+    { id: '4', name: 'Samosas', description: 'Spicy stuffed pastries, perfect for a starter', price: 50 },
+    { id: '5', name: 'Salad with Olives', description: 'Fresh greens with olives and a light dressing', price: 80 },
   ],
   mainCourse: [
-    { id: '6', name: 'Burger', price: 70 },
-    { id: '7', name: 'Dagwood', price: 90 },
-    { id: '8', name: 'Pizza', price: 100 },
-    { id: '9', name: 'Steak', price: 400 },
-    { id: '10', name: 'Ribeye', price: 200 },
-    { id: '11', name: 'Wings', price: 150 },
-    { id: '12', name: 'Seafood', price: 400 },
+    { id: '6', name: 'Burger', description: 'Juicy beef burger with house special sauce', price: 70 },
+    { id: '7', name: 'Dagwood', description: 'Layered sandwich with meats, cheese, and veggies', price: 90 },
+    { id: '8', name: 'Pizza', description: 'Classic pizza with mozzarella and basil', price: 100 },
+    { id: '9', name: 'Steak', description: 'Tender grilled steak with garlic butter', price: 400 },
+    { id: '10', name: 'Ribeye', description: 'Ribeye steak cooked to perfection', price: 200 },
+    { id: '11', name: 'Wings', description: 'Spicy and crispy chicken wings', price: 150 },
+    { id: '12', name: 'Seafood', description: 'Assorted seafood with a lemon garlic sauce', price: 400 },
   ],
   Dessert: [
-    { id: '13', name: 'Ice Cream', price: 40 },
-    { id: '14', name: 'Cake', price: 95 },
-    { id: '15', name: 'Cookies', price: 30 },
-    { id: '16', name: 'Sweets with Caramel', price: 100 },
+    { id: '13', name: 'Ice Cream', description: 'Rich and creamy vanilla ice cream', price: 40 },
+    { id: '14', name: 'Cake', description: 'Moist chocolate cake with layers of frosting', price: 95 },
+    { id: '15', name: 'Cookies', description: 'Homemade cookies with chocolate chips', price: 30 },
+    { id: '16', name: 'Sweets with Caramel', description: 'Assorted sweets drizzled with caramel', price: 100 },
   ],
 };
 
@@ -68,6 +68,7 @@ const MenuScreen = () => {
         renderItem={({ item }) => (
           <View style={styles.menuItem}>
             <Text style={styles.menuItemText}>{item.name} - R{item.price}</Text>
+            <Text style={styles.menuItemDescription}>{item.description}</Text>
             <Button title="Add to Order" onPress={() => handleAddToOrder(item.price)} />
           </View>
         )}
@@ -122,12 +123,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: '#fff',
     borderRadius: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   menuItemText: {
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  menuItemDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 10,
   },
   orderSummary: {
     fontSize: 18,
@@ -149,4 +156,4 @@ const styles = StyleSheet.create({
 });
 
 export default MenuScreen;
-//OpenAI. (2024). MenuScreen Component in React Native. Available at: GitHub Repository or Your Project (Accessed: 2 October 2024).
+//OpenAI. (2024). MenuScreen Component in React Native. Available at: GitHub Repository or Your Project (Accessed: 2 October 2024).\

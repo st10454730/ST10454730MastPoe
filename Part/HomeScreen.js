@@ -179,3 +179,4 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+//OpenAI. (2024). HomeScreen Component in React Native. Available at: GitHub Repository or Your Project (Accessed: 2 October 2024).\
