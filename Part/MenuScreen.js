@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-// Sample data for cuisines and their menu items with added descriptions
 const menuData = {
   Starter: [
     { id: '1', name: 'Chicken Salad', description: 'Fresh salad with grilled chicken slices', price: 50 },
@@ -28,17 +27,15 @@ const menuData = {
 };
 
 const MenuScreen = () => {
-  const [selectedCuisine, setSelectedCuisine] = useState('Dessert'); // Default cuisine
+  const [selectedCuisine, setSelectedCuisine] = useState('Dessert');
   const [orderCount, setOrderCount] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0); // New state for total price
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  // Function to handle adding item to the order
   const handleAddToOrder = (price) => {
     setOrderCount(orderCount + 1);
-    setTotalPrice(totalPrice + price); // Update total price when item is added
+    setTotalPrice(totalPrice + price);
   };
 
-  // Function to handle confirming the order
   const handleConfirmOrder = () => {
     alert(`Order confirmed! Total items: ${orderCount}, Total price: R${totalPrice.toFixed(2)}`);
   };
@@ -90,13 +87,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#F5F5DC',
+    backgroundColor: '#EAF4F4', // Light grayish-blue background
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    color: '#333', // Dark text for visibility
   },
   cuisineContainer: {
     flexDirection: 'row',
@@ -104,32 +102,45 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cuisineButton: {
-    padding: 10,
-    backgroundColor: '#007BFF',
-    borderRadius: 5,
+    padding: 12,
+    backgroundColor: '#2A9D8F', // Teal for cuisine buttons
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   cuisineText: {
-    color: '#fff',
+    color: '#fff', // White text for contrast
     fontSize: 16,
+    fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: '600',
     marginBottom: 15,
     textAlign: 'center',
+    color: '#555', // Neutral subtitle color
   },
   menuItem: {
     padding: 15,
     marginVertical: 10,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    backgroundColor: '#DFF6F0', // Light mint green background
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#B2DFDB',
   },
   menuItemText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
   },
   menuItemDescription: {
     fontSize: 14,
@@ -139,14 +150,20 @@ const styles = StyleSheet.create({
   orderSummary: {
     fontSize: 18,
     textAlign: 'center',
-    marginVertical: 5,
+    marginVertical: 10,
+    color: '#444', // Darker gray for order text
   },
   confirmButton: {
     marginTop: 20,
-    backgroundColor: '#808080',
-    paddingVertical: 12,
+    backgroundColor: '#4CAF50', // Vibrant green for confirmation button
+    paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   confirmButtonText: {
     color: '#fff',
@@ -155,5 +172,5 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default MenuScreen;
-//OpenAI. (2024). MenuScreen Component in React Native. Available at: GitHub Repository or Your Project (Accessed: 2 October 2024).\

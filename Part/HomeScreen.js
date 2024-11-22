@@ -8,22 +8,33 @@ const HomeScreen = ({ navigation }) => {
       id: 1,
       name: "Chef's Special Burger",
       description: "A delightful burger with fresh ingredients and house-made sauce.",
+      price: 85.99,
     },
     {
       id: 2,
       name: "Crab Leg with Cheese",
       description: "Freshly grilled crab legs with a side of garlic butter.",
+      price: 120.49,
     },
   ]);
 
-  const [newDish, setNewDish] = useState({ name: '', description: '' });
+  const [newDish, setNewDish] = useState({ name: '', description: '', price: '' });
   const [selectedDishId, setSelectedDishId] = useState(chefDishes[0]?.id || null);
 
+  const calculateAveragePrice = () => {
+    if (chefDishes.length === 0) return 0;
+    const total = chefDishes.reduce((sum, dish) => sum + (dish.price || 0), 0);
+    return (total / chefDishes.length).toFixed(2);
+  };
+
   const addDish = () => {
-    if (newDish.name && newDish.description) {
-      const updatedDishes = [...chefDishes, { id: chefDishes.length + 1, ...newDish }];
+    if (newDish.name && newDish.description && newDish.price) {
+      const updatedDishes = [
+        ...chefDishes,
+        { id: chefDishes.length + 1, ...newDish, price: parseFloat(newDish.price) },
+      ];
       setChefDishes(updatedDishes);
-      setNewDish({ name: '', description: '' });
+      setNewDish({ name: '', description: '', price: '' });
     } else {
       Alert.alert('Error', 'Please fill in all fields');
     }
@@ -35,49 +46,68 @@ const HomeScreen = ({ navigation }) => {
     if (selectedDishId === id) setSelectedDishId(null);
   };
 
-  const selectedDish = chefDishes.find(dish => dish.id === selectedDishId);
+  const selectedDish = chefDishes.find((dish) => dish.id === selectedDishId);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Our Restaurant!</Text>
-      <Text style={styles.subtitle}>Select a Dish</Text>
 
-      <Picker
-        selectedValue={selectedDishId}
-        style={styles.picker}
-        onValueChange={(itemValue) => setSelectedDishId(itemValue)}
-      >
-        {chefDishes.map((dish) => (
-          <Picker.Item key={dish.id} label={dish.name} value={dish.id} />
-        ))}
-      </Picker>
+      <View style={styles.card}>
+        <Text style={styles.subtitle}>Select a Dish</Text>
+        <Picker
+          selectedValue={selectedDishId}
+          style={styles.picker}
+          onValueChange={(itemValue) => setSelectedDishId(itemValue)}
+        >
+          {chefDishes.map((dish) => (
+            <Picker.Item key={dish.id} label={dish.name} value={dish.id} />
+          ))}
+        </Picker>
 
-      {selectedDish && (
-        <View style={styles.dishContainer}>
-          <Text style={styles.dishTitle}>{selectedDish.name}</Text>
-          <Text style={styles.dishDescription}>{selectedDish.description}</Text>
-          <TouchableOpacity style={styles.removeButton} onPress={() => removeDish(selectedDish.id)}>
-            <Text style={styles.removeButtonText}>Remove Dish</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+        {selectedDish && (
+          <View style={styles.dishContainer}>
+            <Text style={styles.dishTitle}>{selectedDish.name}</Text>
+            <Text style={styles.dishDescription}>{selectedDish.description}</Text>
+            <Text style={styles.dishPrice}>Price: R{selectedDish.price.toFixed(2)}</Text>
+            <TouchableOpacity
+              style={styles.removeButton}
+              onPress={() => removeDish(selectedDish.id)}
+            >
+              <Text style={styles.removeButtonText}>Remove Dish</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Dish Name"
-        value={newDish.name}
-        onChangeText={(text) => setNewDish({ ...newDish, name: text })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Description"
-        value={newDish.description}
-        onChangeText={(text) => setNewDish({ ...newDish, description: text })}
-      />
+      <View style={styles.card}>
+        <Text style={styles.subtitle}>Add a New Dish</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Dish Name"
+          value={newDish.name}
+          onChangeText={(text) => setNewDish({ ...newDish, name: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Description"
+          value={newDish.description}
+          onChangeText={(text) => setNewDish({ ...newDish, description: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Price (e.g., 100.00)"
+          value={newDish.price}
+          keyboardType="numeric"
+          onChangeText={(text) => setNewDish({ ...newDish, price: text })}
+        />
+        <TouchableOpacity style={styles.addButton} onPress={addDish}>
+          <Text style={styles.addButtonText}>Add Dish</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={addDish}>
-        <Text style={styles.addButtonText}>Add Dish</Text>
-      </TouchableOpacity>
+      <View style={styles.averagePrice}>
+        <Text style={styles.averageText}>Average price: R{calculateAveragePrice()}</Text>
+      </View>
 
       <TouchableOpacity
         style={styles.orderButton}
@@ -93,90 +123,111 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#F5F5DC',
+    backgroundColor: '#E8F8F5',
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#2C3E50',
     marginBottom: 20,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
+    color: '#34495E',
+    marginBottom: 10,
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    marginBottom: 20,
   },
   picker: {
     height: 50,
-    width: '100%',
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#D5DBDB',
     marginBottom: 15,
-    borderRadius: 5,
+    borderRadius: 8,
+    paddingHorizontal: 10,
   },
   dishContainer: {
-    marginBottom: 20,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 15,
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#F2F4F4',
     borderRadius: 8,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    alignItems: 'center',
   },
   dishTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 10,
+    color: '#1ABC9C',
   },
   dishDescription: {
     fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
+    color: '#7F8C8D',
+    marginTop: 5,
+  },
+  dishPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#34495E',
+    marginTop: 5,
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: '#BDC3C7',
     borderWidth: 1,
+    borderRadius: 8,
     marginBottom: 10,
-    padding: 10,
-    borderRadius: 5,
+    paddingHorizontal: 10,
   },
   addButton: {
-    backgroundColor: '#FF0000',
-    paddingVertical: 12,
+    backgroundColor: '#1ABC9C',
+    paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 20,
   },
   addButtonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#FFF',
+    fontSize: 16,
     fontWeight: 'bold',
   },
   removeButton: {
-    backgroundColor: '#dc3545',
+    backgroundColor: '#E74C3C',
     paddingVertical: 8,
     borderRadius: 5,
     marginTop: 10,
   },
   removeButtonText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#FFF',
+    fontSize: 14,
     fontWeight: 'bold',
   },
   orderButton: {
-    marginTop: 20,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#3498DB',
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
+    marginTop: 20,
   },
   orderButtonText: {
-    color: '#fff',
+    color: '#FFF',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  averagePrice: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  averageText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2C3E50',
   },
 });
 
 export default HomeScreen;
-//OpenAI. (2024). HomeScreen Component in React Native. Available at: GitHub Repository or Your Project (Accessed: 2 October 2024).\
