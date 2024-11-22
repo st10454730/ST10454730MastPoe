@@ -16,3 +16,4 @@ Only changes I’ve made was the color and the structure of things
 Menu page
 On the menu page there is a function where customers can order and select different types of foods they want to add to their order and confirm they ordered 
 
+https://youtu.be/NDbapo71icc
